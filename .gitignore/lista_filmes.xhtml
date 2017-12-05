@@ -1,0 +1,48 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="titulo">Lista</ui:define>
+	
+		<ui:define name="conteudo">
+		
+		<h:form>
+	
+			<div class="container justify-content-center">
+				<div class="row justify-content-center">
+					<ui:repeat var="filme" value="#{mBeanFilme.filmes}">
+						<div class="card text-white bg-dark mb-3" style="margin-left: 15px; margin-right: 15px; margin-top: 15px;">
+							<h:graphicImage class="card-img-top" value="ServletImagem?id=#{filme.id}" alt="Card image cap"></h:graphicImage>
+							<div class="card-body">
+								<p>
+									<button class="btn btn-dark" type="button" data-toggle="collapse" data-target="##{filme.id}" aria-expanded="false" aria-controls="iluminado">
+										<p class="card-title"><h:outputText value="#{filme.nome}"></h:outputText> </p>
+									</button>
+								</p>
+								<div class="collapse text-center" id="#{filme.id}">
+									<div class="card card-body bg-dark mb-3">
+										<h:commandLink action="#{mBeanFilme.carregarDetalhesFilme(filme)}" class="btn btn-outline-info">+ Informações</h:commandLink>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ui:repeat>	
+				</div>
+			</div>
+	</h:form>
+	
+		</ui:define>
+	
+		<ui:define name="script">
+			<script>
+			</script>
+		</ui:define>
+	
+	</ui:composition>
+
+</html>

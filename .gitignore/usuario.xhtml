@@ -1,0 +1,70 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="title">Bem vindo!</ui:define>
+	
+		<ui:define name="conteudo">
+		
+			<br/><div class="container rounded bg-opacity w-75">
+				<h:form>
+				
+					<h:panelGroup rendered="#{mBeanUsuario.usuario.id!=null}"><br/>
+						<p><h:outputText value="#{mBeanUsuario.usuario.nome}" class="text-white"></h:outputText></p>
+						<p><h:outputText value="#{mBeanUsuario.usuario.cpf}" class="text-white"></h:outputText></p>
+						<p><h:outputText value="#{mBeanUsuario.usuario.dataNascimento}" class="text-white"></h:outputText></p>
+						<p><h:outputText value="#{mBeanUsuario.usuario.sexo}" class="text-white"></h:outputText></p>
+						<p><h:outputText value="#{mBeanUsuario.usuario.email}" class="text-white"></h:outputText></p>
+						<p><button type="submit" jsf:id="btnAlterar" jsf:action="#{mBeanUsuario.alterar(mBeanUsuario.usuario)}" class="btn btn-light btn-sm"><i class="fa fa-pencil fa-fw"></i> Alterar</button></p>
+						
+						<f:metadata>
+							<f:event listener="#{mBeanPedido.listar(mBeanUsuario.usuario.id)}" type="preRenderView"></f:event>
+						</f:metadata>
+						<table class="table">
+						
+							<tr>
+								<th class="text-center"><h:outputText value="Código"></h:outputText></th>
+								<th class="text-center"><h:outputText value="Data"></h:outputText></th>
+								<th class="text-center"><h:outputText value="Valor"></h:outputText></th>
+							</tr>
+			
+							<ui:repeat var="pedido" value="#{mBeanPedido.pedidos}">
+								<tr>
+									<td class="text-center"><h:commandLink value="#{pedido.id}" action="#{mBeanPedido.carregarPedido(pedido)}"></h:commandLink></td>
+									<td class="text-center"><h:outputText value="#{pedido.data}" ><f:convertDateTime pattern="E dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo"/></h:outputText></td>
+									<td class="text-center"><h:outputText value="#{pedido.valor}"><f:convertNumber locale="pt_BR" currencyCode="BRL" type="currency" minFractionDigits="2"/></h:outputText></td>
+								</tr>
+							</ui:repeat>
+			
+						</table>
+						
+					</h:panelGroup>
+					<h:panelGroup rendered="#{mBeanUsuario.usuario.id==null}" styleClass="text-center"><br/>
+						<div class="jumbotron jumbotron-fluid rounded" style="background-color: rgba(255,255,255,0.5)">
+						  <div class="container">
+						    <h1 class="display-3">Você não está logado!</h1>
+						    <p class="lead">Favor realizar login.</p>
+						  </div>
+						</div>
+					</h:panelGroup><br/>
+				</h:form>
+			</div>
+		
+		</ui:define>
+	
+		<ui:define name="script">
+	
+			<script>
+			
+			</script>
+	
+		</ui:define>
+	
+	</ui:composition>
+
+</html>

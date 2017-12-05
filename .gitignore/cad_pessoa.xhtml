@@ -1,0 +1,84 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<ui:composition template="template.xhtml">
+			
+		<ui:define name="titulo">
+			Cadastro Clientes.
+		</ui:define>
+			
+		<ui:define name="conteudo">
+	
+			<br/><div class="container rounded bg-opacity">
+					
+				<form jsf:id="form" method="post">
+				
+					<br/><h2>Cadastrar Cliente</h2>
+					
+					<div class="form-group">
+						<label for="id">Código:</label>
+						<input type="number" jsf:id="id" jsf:value="#{mBeanUsuario.id}"  class="form-control" readonly="readonly"/>
+					</div>
+					
+					<div class="form-group">
+						<label for="nomeCliente">Nome:</label>
+						<input type="text" jsf:id="nome" jsf:value="#{mBeanUsuario.nome}" class="form-control" placeholder="Entre com o nome."/>
+					</div>
+					
+					<div class="form-group">
+						<label for="cpf">CPF:</label>
+						<input type="text" jsf:id="cpf" jsf:value="#{mBeanUsuario.cpf}" id="cpf" class="form-control cpf" placeholder="Entre com o cpf."/>
+					</div>
+					
+					<div class="form-group">
+						<label for="nascimento">Data de Nascimento:</label>
+						<input type="date" jsf:id="date" jsf:value="#{mBeanUsuario.dataNascimento}" class="form-control">
+						<f:convertDateTime pattern="yyyy-MM-dd" timeZone="GTM-3"></f:convertDateTime></input>
+					</div>
+					
+					<div class="form-check">
+					  <label>Sexo:</label>
+					  	<h:selectOneRadio value="#{mBeanUsuario.sexo}" layout="pageDirection">
+					  		<f:selectItem itemValue="Masculino" itemLabel="Masculino" />
+					  		<f:selectItem itemValue="Feminino" itemLabel="Feminino" />
+					  		<f:selectItem itemValue="Outros" itemLabel="Outros" />
+					  	</h:selectOneRadio>
+					</div>
+					
+					<div class="form-group">
+					    <label>Email:</label>
+					    <input type="email" class="form-control" jsf:id="email" jsf:value="#{mBeanUsuario.email}" aria-describedby="emailHelp" placeholder="Email" />
+					</div>
+					
+					<div class="form-group">
+					    <label>Senha:</label>
+					    <input type="password" class="form-control" jsf:id="senha" jsf:value="#{mBeanUsuario.senha}" placeholder="Senha" />
+					</div>
+					
+					<br/>
+					
+					<div>
+							<button type="submit" jsf:id="btnSalvar" jsf:action="#{mBeanUsuario.salvar}" class="btn btn-success botao">Salvar</button>
+							<button type="reset" class="btn btn-danger botao">Cancelar</button>
+					</div><br/>
+				
+							
+				</form>
+			
+			</div>
+				
+		</ui:define>	
+		
+		<ui:define name="script">	
+			<script>
+				$('#cpf').mask('000.000.000-00');
+			</script>
+		</ui:define>
+	
+	</ui:composition>
+	
+</html>

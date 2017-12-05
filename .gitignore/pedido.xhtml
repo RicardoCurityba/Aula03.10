@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="title"></ui:define>
+	
+		<ui:define name="conteudo">
+			
+			<h:panelGroup rendered="#{mBeanPedido.pedido.id==null}">
+				<f:metadata>
+					<f:event listener="#{mBeanPedido.pedidoCar(mBeanCarrinho.p)}" type="preRenderView"></f:event>
+				</f:metadata>
+			</h:panelGroup>
+			
+			<br/><div class="container rounded bg-opacity w-75 text-dark"><br/>
+				<div class="row">
+					<div class="col float-left">
+						<H5><h:outputText value="Código do pedido #{mBeanPedido.pedido.id} " styleClass=""/></H5>
+					</div>
+					<div class="col float-right">
+						<h5><h:outputText value="Data do pedido: " />
+						<h:outputText value="#{mBeanPedido.pedido.data}" >
+							<f:convertDateTime pattern="E dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo"/>
+						</h:outputText></h5>
+					</div>
+				</div><br/>
+				<div>
+					<table class="table">
+					
+						<tr>
+							<th class="text-center"><h:outputText value="Código"></h:outputText></th>
+							<th><h:outputText value="Produto"></h:outputText></th>
+							<th class="text-center"><h:outputText value="Quant"></h:outputText></th>
+							<th><h:outputText value="Valor"></h:outputText></th>
+						</tr>
+		
+						<ui:repeat var="item" value="#{mBeanPedido.pedido.itens_livros}">
+							<tr>
+								<td class="text-center"><h:outputText value="#{item.livro.id}" ></h:outputText></td>
+								<td><h:outputText value=" #{item.livro.titulo}"/></td>
+								<td class="text-center"><h:outputText value="#{item.quantidade}"></h:outputText></td>
+								<td><h:outputText value="#{item.valor}"><f:convertNumber locale="pt_BR" currencyCode="BRL" type="currency" minFractionDigits="2"/></h:outputText></td>
+							</tr>
+						</ui:repeat>
+						
+						<ui:repeat var="item" value="#{mBeanPedido.pedido.itens_filmes}">
+							<tr>
+								<td class="text-center"><h:outputText value="#{item.filme.id}" ></h:outputText></td>
+								<td><h:outputText value=" #{item.filme.nome}"/></td>
+								<td class="text-center"><h:outputText value="#{item.quantidade}"></h:outputText></td>
+								<td><h:outputText value="#{item.valor}"><f:convertNumber locale="pt_BR" currencyCode="BRL" type="currency" minFractionDigits="2"/></h:outputText></td>
+							</tr>
+						</ui:repeat>
+					
+					</table>
+						
+			
+				</div>
+				<div class="text-right">
+					<p><b><h:outputText value="Valor Total"></h:outputText></b></p>
+					<p><h:outputText value="#{mBeanPedido.pedido.valor}"><f:convertNumber locale="pt_BR" currencyCode="BRL" type="currency" minFractionDigits="2"/></h:outputText></p>
+				</div><br/>
+				
+			</div>
+	
+		</ui:define>
+	
+		<ui:define name="script">
+			<script>
+			</script>
+		</ui:define>
+	
+	</ui:composition>
+
+</html>

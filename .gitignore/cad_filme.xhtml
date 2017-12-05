@@ -1,0 +1,129 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="template.xhtml">
+	
+		<ui:define name="titulo">
+				Cadastro Filmes.
+			</ui:define>
+	
+		<ui:define name="conteudo">
+			
+			<h:panelGroup rendered="#{mBeanFilme.id!=null}" >
+				<br/><div class="container rounded bg-opacity">
+					<br/><div>
+						<h:graphicImage value="ServletImagem?id=#{mBeanFilme.id}" class="w-15"></h:graphicImage>
+					</div><br/>
+				</div>
+			</h:panelGroup>
+			
+			<br />
+			<div class="container rounded bg-opacity">
+	
+				<form jsf:id="form" method="post" enctype="multipart/form-data">
+					<br />
+					<h2>Cadastrar Filme</h2>
+					
+					<div class="form-group">
+						<label for="id">Código:</label>
+						<input type="number" jsf:id="id" jsf:value="#{mBeanFilme.id}"  class="form-control" readonly="readonly"/>
+					</div>
+	
+					<div class="form-group">
+						<label for="nomeFilme">Nome:</label>
+						<input jsf:id="id" jsf:value="#{mBeanFilme.nome}" type="text" name="nomeFilme" class="form-control" placeholder="Entre com o nome do filme." />
+					</div>
+	
+					<div class="form-group">
+						<label for="tipoJogo">Gênero:</label>
+						<h:selectOneMenu value="#{mBeanFilme.genero}"	styleClass="form-control">
+							<f:selectItem itemValue="Ação"></f:selectItem>
+							<f:selectItem itemValue="Animação"></f:selectItem>
+							<f:selectItem itemValue="Aventura"></f:selectItem>
+							<f:selectItem itemValue="Chanchada"></f:selectItem>
+							<f:selectItem itemValue="Comédia"></f:selectItem>
+							<f:selectItem itemValue="Comédia Romantica"></f:selectItem>
+							<f:selectItem itemValue="Documentário"></f:selectItem>
+							<f:selectItem itemValue="Drama"></f:selectItem>
+							<f:selectItem itemValue="Fantasia"></f:selectItem>
+							<f:selectItem itemValue="Histórico"></f:selectItem>
+							<f:selectItem itemValue="Romance"></f:selectItem>
+						</h:selectOneMenu>
+					</div>
+	
+					<div class="form-group">
+						<label for="atores">Atores:</label>
+						<input jsf:id="atores" jsf:value="#{mBeanFilme.atores}" type="text" name="atores" class="form-control" placeholder="Entre com os atores." />
+					</div>
+					
+					<div class="form-group">
+						<label for="anoLancamento">Ano de lançamento:</label>
+						<input jsf:id="ano" jsf:value="#{mBeanFilme.ano}" type="text" id="anoLancamento" class="form-control anoLancamento" placeholder="Entre com o ano de lançamento"/>
+					</div>
+					
+					<div class="form-group">
+						<label for="preco">Preço</label>
+						<input type="text" id="valor" jsf:id="preco" jsf:value="#{mBeanFilme.preco}" class="form-control valor" placeholder="R$ ">
+						<f:convertNumber locale="pt_BR" currencyCode="BRL" type="currency" minFractionDigits="2"></f:convertNumber>
+						</input>
+					</div>
+
+					<div class="form-group">
+						<label for="fotoCapa">Capa:</label> 
+						<input jsf:id="imagem" jsf:value="#{mBeanFilme.imagem}" type="file" class="form-control-file" id="exampleFormControlFile1" />
+					</div>
+	
+					<div class="form-group">
+						<label for="sinopse">Sinopse:</label>
+						<textarea jsf:id="descricao" jsf:value="#{mBeanFilme.descricao}" class="form-control" rows="3"></textarea>
+					</div>
+	
+					<div>
+						<button type="submit" jsf:id="btnSalvar" jsf:action="#{mBeanFilme.salvar}" class="btn btn-success botao">Salvar</button>
+						<button type="reset" class="btn btn-danger botao">Cancelar</button>
+					</div><br/>
+					
+					<table class="table">
+						
+							<tr>
+								<th><h:outputText value="Nome"></h:outputText></th>
+								<th><h:outputText value="Gênero"></h:outputText></th>
+								<th><h:outputText value="Atores"></h:outputText></th>
+								<th><h:outputText value="Ano"></h:outputText></th>
+								<th><h:outputText value="Preço"></h:outputText></th>
+								<th><h:outputText value="Alterar"></h:outputText></th>
+								<th><h:outputText value="Excluir"></h:outputText></th>
+							</tr>
+			
+							<ui:repeat var="filme" value="#{mBeanFilme.filmes}">
+								<tr>
+									<td><h:outputText value="#{filme.nome}"></h:outputText></td>
+									<td><h:outputText value="#{filme.genero}"></h:outputText></td>
+									<td><h:outputText value="#{filme.atores}"></h:outputText></td>
+									<td><h:outputText value="#{filme.ano}"></h:outputText></td>
+									<td><h:outputText value="#{filme.preco}"><f:convertNumber locale="pt_BR" currencyCode="BRL" type="currency" minFractionDigits="2"/></h:outputText></td>
+									<td><button type="submit" jsf:id="btnAlterar" jsf:action="#{mBeanFilme.alterar(filme)}" class="btn btn-light btn-sm"><i class="fa fa-pencil fa-fw"></i> Alterar</button></td>
+									<td><button type="submit" jsf:id="btnExcluir" jsf:action="#{mBeanFilme.excluir(filme)}" class="btn btn-light btn-sm"><i class="fa fa-trash-o fa-lg"></i> Excluir</button></td>
+								</tr>
+							</ui:repeat>
+			
+						</table>
+	
+				</form>
+			</div>
+	
+		</ui:define>
+		
+		<ui:define name="script">
+ 			<script>
+				$('#anoLancamento').mask('0000');
+ 				$('#valor').mask('R$ 000,00');
+ 			</script>
+ 		</ui:define>
+	
+	</ui:composition>
+</html>

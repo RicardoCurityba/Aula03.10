@@ -1,0 +1,148 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	
+	<h:head>
+		<title>
+			<ui:insert name="titulo"></ui:insert>
+		</title>
+		
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+		
+		<style type="text/css">
+			.bg-opacity{
+				background-color: rgba(52, 58, 64, 0.5);
+			}
+			.w-10{
+				width: 10%
+			}
+			.w-15{
+				width: 15%
+			}
+			.w-35{
+				width: 35%
+			}
+			.w-45{
+				width: 45%
+			}
+			.btn-rsm, .btn-group-rsm > .btn {
+				 padding: 0.15rem 0.3rem;
+				 font-size: 0.550rem;
+				 line-height: 1.0;
+				 border-radius: 0.1rem;
+			}
+			.rounded-circle-sm {
+				 border-radius: 50%;
+			}
+			.border-just-on-top {
+				border-left: 0 !important;
+				border-bottom: 0 !important;
+				border-right: 0 !important;
+			}
+			.text-orange{
+				color: #FFA500 !important;
+			}
+		</style>
+		
+	</h:head>
+	<h:body style="background: url('imagens/textura.jpg') repeat !important;">
+		
+		<f:metadata>
+			<f:event listener="#{mBeanUsuario.sessao}" type="preRenderView"></f:event>
+		</f:metadata>
+			
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  			
+		  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="home.jsf"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+		      </li>
+		      <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          <i class="fa fa-bars" aria-hidden="true"></i> Cadastro
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+		          <a class="dropdown-item" href="cad_pessoa.jsf"><i class="fa fa-users" aria-hidden="true"></i> Cadastrar Usuários</a>
+		          <a class="dropdown-item" href="cad_livro.jsf"><i class="fa fa-book" aria-hidden="true"></i> Cadastrar Livros</a>
+		          <a class="dropdown-item" href="cad_filme.jsf"><i class="fa fa-film" aria-hidden="true"></i> Cadastrar Filmes</a>
+		        </div>
+		      </li>
+		      <li class="nav-item active">
+		        <a class="nav-link" href="lista_livros.jsf"><i class="fa fa-th" aria-hidden="true"></i> Livros</a>
+		      </li>
+		      <li class="nav-item active">
+		        <a class="nav-link" href="lista_filmes.jsf"><i class="fa fa-th-large" aria-hidden="true"></i> Filmes</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link disabled" href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> Fale Conosco</a>
+		      </li>
+		    </ul>
+		    <h:form class="form-inline my-2 my-lg-0">
+		    <h:messages></h:messages>
+			    <h:panelGroup rendered="#{mBeanUsuario.usuario.id==null}">
+			    	<a class="nav-link my-2 my-lg-0 text-orange" href="login.jsf"><i class="fa fa-sign-in" aria-hidden="true"></i> login</a>
+			    </h:panelGroup>
+			    <h:panelGroup rendered="#{mBeanUsuario.usuario.id!=null}">
+			    	<a class="nav-link my-2 my-lg-0 text-white" href="usuario.jsf">Bem vindo! #{mBeanUsuario.usuario.nome}</a>
+			    	<a jsf:id="logout" jsf:action="#{mBeanUsuario.logout}" class="text-orange"><i class="fa fa-sign-out" aria-hidden="true"></i> logout</a> 
+			    </h:panelGroup> 
+		      <input class="form-control mr-sm-2" type="text" placeholder="Digite o produto" aria-label="Search"/>
+		      <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+		    </h:form>
+		  </div>
+  			
+		</nav>
+		
+		<div class="container">
+			<ui:insert name="conteudo"></ui:insert>
+		</div>
+		
+		<div class="blockquote-footer">
+			<div class="inner-footer text-white" style="background-color: #343a40">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4 f-about">
+							<h2><a href="home.jsf" class="text-white">Livrarias Escolhas</a></h2>
+						</div>
+						<div class="col-md-4 l-posts">
+							<h3 class="widgetheading">Novidades</h3>
+							<ul>
+								<li><a href="#">Lançamentos em breve</a></li>
+							</ul>
+						</div>
+						<div class="col-md-4 f-contact">
+							<h3 class="widgetheading">Contato</h3>
+							<a href="#" class="text-white"><i class="fa fa-envelope-o fa-fw"></i> example@gmail.com</a>
+							<p><i class="fa fa-phone" aria-hidden="true"></i> +55 0800 155 7070</p>
+							<p> Livrarias Escolhas Ltda ©</p>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+			<div class="last-div text-white" style="background-color: #343a40">
+				<div class="container">
+					<div class="row">					
+						<div class="copyright">
+							2017 Trabalho avaliativo de JAVA para Web <i class="fa fa-university" aria-hidden="true"></i>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.mask.min.js"></script>
+		
+		<ui:insert name="script"></ui:insert>
+		
+	</h:body>
+</html>
